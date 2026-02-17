@@ -4,12 +4,12 @@ import React from 'react';
 import { signInWithGoogle } from '@/lib/auth-service';
 import { useRouter } from 'next/navigation';
 
-export default function AuthPage() {
+export default function Home() {
   const router = useRouter();
 
   const handleLogin = async () => {
     try {
-      // AQUÍ SE ACTIVA EL MOTOR REAL DE GOOGLE
+      // Activa la cerradura real de Google
       await signInWithGoogle();
       router.push('/chat'); 
     } catch (error) {
@@ -21,7 +21,7 @@ export default function AuthPage() {
   return (
     <main className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center border border-slate-200">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6 font-sans">Identidad Verificada</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mb-6">Identidad Verificada</h2>
         <p className="text-slate-600 mb-8 leading-relaxed">
           Para garantizar la seguridad sanitaria y la privacidad de tu sesión, por favor inicia sesión con Google.
         </p>
