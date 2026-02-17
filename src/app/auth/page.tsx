@@ -4,7 +4,7 @@ import React from 'react';
 import { signInWithGoogle } from '../../lib/auth-service';
 import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function AuthPage() {
   const router = useRouter();
 
   const handleLogin = async () => {
