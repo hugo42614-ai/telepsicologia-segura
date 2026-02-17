@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { signInWithGoogle } from '../../lib/auth-service';
+import { signInWithGoogle } from '@/lib/auth-service';
 import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
