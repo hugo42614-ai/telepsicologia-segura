@@ -1,70 +1,40 @@
-'use client'; // Necesario para que el botón funcione
+'use client';
 
 import React from 'react';
+import { signInWithGoogle } from '@/lib/auth-service';
 import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function AuthPage() {
   const router = useRouter();
 
-  const handleLogin = () => {
-    // Redirige a la página de autenticación/registro
-    router.push('/auth'); 
+  const handleLogin = async () => {
+    try {
+      // AQUÍ SE ACTIVA EL MOTOR REAL DE GOOGLE
+      await signInWithGoogle();
+      router.push('/chat'); 
+    } catch (error) {
+      console.error("Error de acceso:", error);
+      alert("No se pudo verificar la identidad. Intenta de nuevo.");
+    }
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 font-sans">
-      <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-slate-100">
-        
-        <header className="mb-10 text-center">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-            Telepsicología Segura
-          </h1>
-          <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
-        </header>
-
-        <section className="space-y-6 text-center">
-          <p className="text-2xl text-slate-700 italic font-light leading-relaxed">
-            "Tu espacio seguro, donde la tecnología cuida tu humanidad."
-          </p>
-          
-          <blockquote className="border-l-4 border-blue-200 pl-6 py-2 text-left text-slate-600 italic">
-            "No necesitas ver toda la escalera para dar el primer paso. Aquí, tu voz es privada, tu proceso está protegido y tu bienestar es nuestra única brújula."
-          </blockquote>
-        </section>
-
-        <div className="grid md:grid-cols-3 gap-6 mt-12">
-          <div className="p-4 bg-blue-50 rounded-lg text-center">
-            <h3 className="font-semibold text-blue-900 mb-2">Privacidad Absoluta</h3>
-            <p className="text-xs text-blue-800/80">Palabras blindadas con cifrado de grado médico.</p>
-          </div>
-          <div className="p-4 bg-green-50 rounded-lg text-center">
-            <h3 className="font-semibold text-green-900 mb-2">Seguridad 24/7</h3>
-            <p className="text-xs text-green-800/80">Crisis Guard activo para proteger tu integridad.</p>
-          </div>
-          <div className="p-4 bg-purple-50 rounded-lg text-center">
-            <h3 className="font-semibold text-purple-900 mb-2">Ética Humana</h3>
-            <p className="text-xs text-purple-800/80">Transparencia total en el manejo de tu información.</p>
-          </div>
-        </div>
-
-        <div className="mt-12 text-center">
-          {/* BOTÓN CONECTADO */}
-          <button 
-            onClick={handleLogin}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-lg"
-          >
-            Iniciar Sesión Segura
-          </button>
-          <p className="mt-4 text-[10px] text-slate-400 uppercase tracking-widest">
-            Al continuar, aceptas nuestro Consentimiento Informado (Principio 1).
-          </p>
-        </div>
-
+    <main className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+      <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center border border-slate-200">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6 font-sans">Identidad Verificada</h2>
+        <p className="text-slate-600 mb-8 leading-relaxed">
+          Para garantizar la seguridad sanitaria y la privacidad de tu sesión, por favor inicia sesión con Google.
+        </p>
+        <button 
+          onClick={handleLogin}
+          className="w-full bg-blue-600 text-white py-4 rounded-full font-bold hover:bg-blue-700 transition-all shadow-md transform hover:scale-105"
+        >
+          Continuar con Google
+        </button>
+        <p className="mt-6 text-[10px] text-slate-400 uppercase tracking-widest">
+          Infraestructura Segura — Principio 5
+        </p>
       </div>
-      
-      <footer className="mt-8 text-slate-400 text-xs">
-        © 2026 Telepsicología Segura — Tecnología al servicio de la Salud Mental
-      </footer>
     </main>
   );
 }
